@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css">
+</head>
+<body>
+<div>
+<h1>API de Preguntas de Trivia Aleatorias</h1>
+<h2>Conectar con la API de Open Trivia Database</h2>
+    <p>
+        Open Trivia Database (OpenTDB) es una API gratuita que proporciona preguntas de trivia en formato JSON. 
+        Puedes personalizar la cantidad de preguntas, la categoría, la dificultad y el tipo de respuesta. Para acceder a la API, 
+        utilizamos el siguiente endpoint: 
+        <code>https://opentdb.com/api.php</code>. Un ejemplo de solicitud sería: 
+        <code>https://opentdb.com/api.php?amount=10</code>, donde el parámetro <code>amount=10</code> indica 
+        que queremos obtener 10 preguntas aleatorias.
+    </p>
+    <p>
+        Para mostrar estas preguntas en una página web, en el caso del endpoint <code>https://opentdb.com/api.php?amount=10</code> retorna un
+        .json con un arreglo con el type, difficulty, category, question, correct_answer, y las incorrect_answers como elementos de cada pregunta en el arreglo.
+        El Javascript se vería así dentro de una función:
+    </p>
+    <code>
+        const apiUrl = "https://opentdb.com/api.php?amount=10";
+        const respuesta = await fetch(apiUrl);
+        const rJSON = await respuesta.json();
+        const trivia = document.getElementById("Respuestas");
+
+        rJSON.results.forEach((item, index) => {
+        const questionText = document.createTextNode(`${item.question}: `);
+        const answerText = document.createTextNode(`${item.correct_answer}. `);
+        
+        trivia.appendChild(questionText);
+        trivia.appendChild(document.createElement("br"));
+        trivia.appendChild(answerText);
+        trivia.appendChild(document.createElement("br"));
+        trivia.appendChild(document.createElement("br"));
+    </code>
+    
+<h3>Trivia:</h3>
+<p id="Respuestas"></p>
+
+</div>
+</body>
+<script src="js/API.js"></script>
+</html>
