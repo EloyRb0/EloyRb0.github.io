@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Donantes</title>
+</head>
+<body>
+    <h1>Lista de Donantes</h1>
+   
+    <a href="/">Bienvenida</a>
+    <a href="/escuelas">Pagina de Escuelas</a>
+    <div id="Donantes"></div>
+
+    <script>
+        async function obtenerDonantes() {
+            //Agregar el url adecuado
+          const listaDonantes= await fetch("/api/donantes");
+          const jsonLD=await listaDonantes.json();
+          const lista = document.getElementById("Donantes");
+
+          jsonLD.donantes.forEach((item, index) => {
+          const questionText = document.createTextNode(`${item.nombre}: `);
+          const answerText = document.createTextNode(`${item.monto}. `);
+        
+          lista.appendChild(questionText);
+          lista.appendChild(document.createElement("br"));
+          lista.appendChild(answerText);
+          lista.appendChild(document.createElement("br"));
+          lista.appendChild(document.createElement("br"));
+    }); 
+        }
+        obtenerDonantes();
+    </script>
+</body>
