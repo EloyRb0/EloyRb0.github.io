@@ -5,27 +5,27 @@ import pytesseract
 img = cv2.imread("placa_4.jpg")
 
 # Change image to greyscale
-gris = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
 # Up the contrast for the image
 clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8))
-gris = clahe.apply(gris)
+gray = clahe.apply(gray)
 
 # Soften the image with Gaussian Blur filter
-suavizada = cv2.GaussianBlur(gris, (5, 5), 0)
+softened_img = cv2.GaussianBlur(gray, (5, 5), 0)
 
 # Border detection 
-bordes = cv2.Canny(suavizada, 100, 200)
-cv2.imshow("Bordes (Canny)", bordes)
+borders_img = cv2.Canny(softened_img, 100, 200)
+cv2.imshow("borders_img (Canny)", borders_img)
 
 # OCR using Tesseract 
-texto_detectado = pytesseract.image_to_string(suavizada, config='--psm 8')
+detected_text = pytesseract.image_to_string(softened_img, config='--psm 8')
 
 # Print detected text in console
-print(f"Texto detectado: {texto_detectado.strip()}")
+print(f"Detected text: {detected_text.strip()}")
 
 # Show visual results
-cv2.imshow("Entrada", img)
-cv2.imshow("Mejorada", suavizada)
+cv2.imshow("Entry image", img)
+cv2.imshow("Gaussian Blur image", softened_img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
