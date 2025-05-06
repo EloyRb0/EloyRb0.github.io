@@ -21,11 +21,10 @@ suavizada = cv2.GaussianBlur(gris, (5, 5), 0)
 bordes = cv2.Canny(suavizada, 100, 200)
 cv2.imshow("Bordes (Canny)", bordes)
 
-
 # OCR
 texto_detectado = pytesseract.image_to_string(suavizada, config='--psm 8')
 
-print("🔍 Texto detectado:", texto_detectado.strip())
+print("Texto detectado:", texto_detectado.strip())
 
 # Mostrar resultado visual
 cv2.imshow("Entrada", img)
